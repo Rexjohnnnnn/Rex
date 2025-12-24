@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me - Rex John Derayal</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #111;
+  color: #fff;
+  scroll-behavior: smooth;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 50px;
+  background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(5px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border: 2px solid #8A2BE2;
+  border-radius: 12px;
+  margin: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+nav h2 {
+  color: #8A2BE2;
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: 2px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  border: 1px solid #8A2BE2;
+}
+
+.about {
+  max-width: 1000px;
+  margin: 100px auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 60px;
+  padding: 40px;
+  position: relative;
+}
+
+.about::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: #8A2BE2;
+  opacity: 0.05;
+  top: -50px;
+  left: -50px;
+  transform: rotate(45deg);
+  border-radius: 20px;
+  z-index: 0;
+}
+
+.about-text {
+  flex: 1;
+  z-index: 1;
+}
+
+.about-text h2 {
+  font-size: 36px;
+  margin-bottom: 25px;
+  color: #8A2BE2;
+  position: relative;
+}
+
+.about-text h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #8A2BE2;
+  margin-top: 6px;
+  border-radius: 2px;
+}
+
+.about-text p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #e1e1e1;
+  white-space: pre-line;
+}
+
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+.about-image img {
+  width: 80%;
+  max-width: 380px;
+  border: 4px solid #8A2BE2;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.85);
+  transform: rotate(-3deg);
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.about-image img:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.interactive {
+  max-width: 900px;
+  margin: 80px auto;
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
+.interactive h2 {
+  color: #8A2BE2;
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background: #1a1a1a;
+  border: 2px solid #8A2BE2;
+  border-radius: 12px;
+  padding: 20px 25px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.05);
+  background: #8A2BE2;
+  color: #111;
+}
+
+#message-box {
+  margin-top: 25px;
+  font-size: 18px;
+  min-height: 24px;
+  color: #B19CD9;
+}
+
+#quiz {
+  max-width: 500px;
+  margin: 40px auto;
+  background: #1a1a1a;
+  border: 2px solid #8A2BE2;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  display: none;
+}
+
+#quiz button {
+  margin: 8px;
+  padding: 10px 20px;
+  border: 2px solid #8A2BE2;
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#quiz button:hover {
+  background: #8A2BE2;
+  color: #111;
+}
+
+.highlight {
+  color: #8A2BE2;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .about {
+    flex-direction: column;
+    text-align: center;
+    margin: 50px 20px;
+  }
+
+  .about-image img {
+    width: 60%;
+    transform: rotate(0deg);
+  }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>MY <span style="color:#8A2BE2;">EDUCATIONAL PORTFOLIO</span></h2>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about me.html">About Me</a></li>
+    <li><a href="photos.html">Photos</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+  </ul>
+</nav>
+
+<section class="about">
+  <div class="about-text">
+    <h2>About Me</h2>
+    <p>
+      Hello! I’m <strong>Rex John Derayal</strong>, a 3rd-year BSIT student, 23 years old.
+      I’m a curious and passionate learner who loves exploring <span class="highlight">technology</span>,
+      building skills, and turning ideas into projects that reflect both growth and purpose.
+      <br><br>
+      Outside academics, I’m a collector of <span class="highlight">perfumes</span> each scent
+      a story, a memory, a mood. I also treasure moments spent with my <span class="highlight">girlfriend</span>,
+      where even the simplest conversation feels like poetry. Life is an algorithm of moments,
+      and the most meaningful ones are written in love, laughter, and little adventures.
+    </p>
+  </div>
+  <div class="about-image">
+    <a href="jumpscare.html">
+      <img src="rex.jpg" alt="Profile Photo">
+    </a>
+  </div>
+</section>
+
+<section class="interactive">
+  <h2>Let's Have Some Fun!</h2>
+  <div class="cards">
+    <div class="card" onclick="showMessage('Hey! Thanks for stopping by 😎')">
+      Say Hi!
+    </div>
+    <div class="card" onclick="showMessage('My favorite perfume? Hmm… smells like confidence 😏')">
+      Guess My Favorite Perfume
+    </div>
+    <div class="card" onclick="showMessage('Click my profile picture for a surprise! 👀')">
+      Secret Easter Egg
+    </div>
+    <div class="card" onclick="startQuiz()">
+      Mini Quiz
+    </div>
+  </div>
+  <div id="message-box"></div>
+</section>
+
+<div id="quiz">
+  <h3>Mini Quiz: How well do you know Rex?</h3>
+  <p>What is Rex's favorite hobby besides coding?</p>
+  <button onclick="answerQuiz('correct')">Collecting perfumes</button>
+  <button onclick="answerQuiz('wrong')">Playing basketball</button>
+  <button onclick="answerQuiz('wrong')">Watching anime</button>
+  <p id="quiz-result"></p>
+  <button onclick="closeQuiz()">Close Quiz</button>
+</div>
+
+<script>
+function showMessage(msg) {
+  const box = document.getElementById('message-box');
+  box.textContent = msg;
+}
+
+function startQuiz() {
+  document.getElementById('quiz').style.display = 'block';
+}
+
+function answerQuiz(result) {
+  const res = document.getElementById('quiz-result');
+  if(result === 'correct') {
+    res.textContent = "🎉 Correct! Perfume is life 😎";
+  } else {
+    res.textContent = "❌ Nope! Try again 😉";
+  }
+}
+
+function closeQuiz() {
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('quiz-result').textContent = '';
+}
+</script>
+
+</body>
+</html>

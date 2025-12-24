@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificates - My Portfolio</title>
+<style>
+  body {
+    background: #111;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 50px;
+    background: rgba(0,0,0,0.9);
+    border: 2px solid #8A2BE2;
+    border-radius: 12px;
+    margin: 10px;
+  }
+  nav h2 { color: #8A2BE2; font-weight: 900; font-size: 22px; }
+  nav ul { list-style: none; display: flex; gap: 25px; }
+  nav ul li a { color: #fff; text-decoration: none; font-weight: 700; font-size: 16px; padding: 6px 12px; border-radius: 6px; border: 1px solid transparent; transition: all 0.3s ease; }
+  nav ul li a:hover { border: 1px solid #8A2BE2; }
+
+  .container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #0e0e1f;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 { color: #8A2BE2; margin-bottom: 30px; text-align: center; }
+
+  .cert-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .cert-card {
+    width: 30%;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+    border: 2px solid #8A2BE2;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .cert-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .cert-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.9);
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 10px;
+  }
+  .nav-buttons button {
+    background: #8A2BE2;
+    border: none;
+    color: #111;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .nav-buttons button:hover {
+    background: #6a11cb;
+    color: #fff;
+  }
+
+  .lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+  }
+  .lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border: 3px solid #8A2BE2;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.85);
+  }
+  .lightbox:target {
+    display: flex;
+  }
+
+  @media screen and (max-width: 900px) {
+    .cert-card { width: 45%; }
+  }
+  @media screen and (max-width: 600px) {
+    .cert-card { width: 90%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>MY <span style="color:#8A2BE2;">EDUCATIONAL PORTFOLIO</span></h2>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about me.html">About Me</a></li>
+    <li><a href="photos.html">Photos</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <h1>My Certificates</h1>
+
+  <div class="cert-grid" id="certGrid">
+  </div>
+
+  <div class="nav-buttons">
+    <button onclick="prevCerts()">Prev</button>
+    <button onclick="nextCerts()">Next</button>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <img id="lightboxImg" src="" alt="Certificate">
+</div>
+
+<script>
+const certs = [
+  {src: "up business for it.jpg"},
+  {src: "dynata phil.jpg"},
+  {src: "Rivan IT Cebu.jpg"},
+  {src: "mata tech.jpg"},
+  {src: "tarsier.jpg"},
+  {src: "impression sheet.jpg"},
+  {src: "cert.jpg"},
+];
+
+const perPage = 3;
+let current = 0;
+const certGrid = document.getElementById("certGrid");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+
+function renderCerts() {
+  certGrid.innerHTML = "";
+  for(let i = current; i < current + perPage && i < certs.length; i++) {
+    const card = document.createElement("div");
+    card.className = "cert-card";
+    const img = document.createElement("img");
+    img.src = certs[i].src;
+    img.onclick = () => {
+      lightboxImg.src = certs[i].src;
+      lightbox.style.display = "flex";
+      lightbox.currentIndex = i;
+    };
+    card.appendChild(img);
+    certGrid.appendChild(card);
+  }
+}
+
+function nextCerts() {
+  current += perPage;
+  if(current >= certs.length) current = 0;
+  renderCerts();
+}
+
+function prevCerts() {
+  current -= perPage;
+  if(current < 0) current = Math.floor((certs.length - 1) / perPage) * perPage;
+  renderCerts();
+}
+
+lightbox.onclick = (e) => {
+  if(e.target === lightbox) lightbox.style.display = "none";
+};
+
+document.addEventListener("keydown", (e) => {
+  if(lightbox.style.display === "flex") {
+    if(e.key === "ArrowRight") {
+      lightbox.currentIndex = (lightbox.currentIndex + 1) % certs.length;
+      lightboxImg.src = certs[lightbox.currentIndex].src;
+    } else if(e.key === "ArrowLeft") {
+      lightbox.currentIndex = (lightbox.currentIndex - 1 + certs.length) % certs.length;
+      lightboxImg.src = certs[lightbox.currentIndex].src;
+    } else if(e.key === "Escape") {
+      lightbox.style.display = "none";
+    }
+  } else {
+    if(e.key === "ArrowRight") nextCerts();
+    if(e.key === "ArrowLeft") prevCerts();
+  }
+});
+
+renderCerts();
+</script>
+
+
+
+</body>
+</html>

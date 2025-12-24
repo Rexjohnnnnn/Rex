@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photos - My Educational Portfolio</title>
+<style>
+  body {
+    background: #111;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 50px;
+    background: rgba(0,0,0,0.9);
+    border: 2px solid #8A2BE2;
+    border-radius: 12px;
+    margin: 10px;
+  }
+  nav h2 { color: #8A2BE2; font-weight: 900; font-size: 22px; }
+  nav ul { list-style: none; display: flex; gap: 25px; }
+  nav ul li a { color: #fff; text-decoration: none; font-weight: 700; font-size: 16px; padding: 6px 12px; border-radius: 6px; border: 1px solid transparent; transition: all 0.3s ease; }
+  nav ul li a:hover { border: 1px solid #8A2BE2; }
+
+  .container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 { color: #8A2BE2; margin-bottom: 30px; text-align: center; }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+  }
+
+  .photo-card, .video-card {
+    background: #0e0e1f;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  .photo-card img, .video-card video {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+    border-radius: 20px;
+  }
+  .photo-card img:hover, .video-card video:hover { transform: scale(1.05); }
+
+  .caption {
+    padding: 10px 15px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #8A2BE2;
+  }
+
+  .fun-fact {
+    display: none;
+    background: rgba(138,43,226,0.9);
+    color: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    margin: 5px 15px 15px;
+    font-size: 14px;
+  }
+  .arrow-btn { cursor: pointer; font-size: 18px; font-weight: bold; transition: transform 0.2s; }
+  .arrow-btn:hover { transform: rotate(90deg); }
+
+  .lightbox {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .lightbox-content {
+    max-width: 70%;
+    max-height: 70%;
+    background: rgba(0,0,0,0.8);
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .lightbox-content img, .lightbox-content video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    border-radius: 12px;
+  }
+  .lightbox-caption {
+    margin-top: 15px;
+    color: #8A2BE2;
+    font-size: 18px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>MY <span style="color:#8A2BE2;">EDUCATIONAL PORTFOLIO</span></h2>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about me.html">About Me</a></li>
+    <li><a href="photos.html">Photos</a></li>
+    <li><a href="certificates.html">Certificates</a></li>
+  </ul>
+</nav>
+<div class="container">
+
+<h1>Photo & Video Documentation</h1>
+  <div class="photo-grid" id="photoGrid"></div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content" id="lightboxContent"></div>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<script>
+const mediaItems = [
+  { type: "photo", src: "upcebu.jpg.jpg", caption: "UP CEBU BUSINESS INCUBATOR FOR IT – Cebu", funFact: "Supports tech startups in Cebu City." },
+  { type: "photo", src: "dynatacebu.up.jpg", caption: "DYNATA PHILIPPINES, INC. – Cebu", funFact: "One of the largest data collection companies worldwide." },
+  { type: "photo", src: "rivanitcebu3.jpg.jpg", caption: "RIVAN IT CEBU – Cebu", funFact: "Helps companies with IT solutions and support." },
+  { type: "photo", src: "rivanitcebu2.jpg.jpg", caption: "RIVAN IT CEBU – Cebu", funFact: "Known for software development projects." },
+  { type: "photo", src: "matacebu.jpg.jpg", caption: "MATA TECHNOLOGIES, INC. – Cebu", funFact: "Specializes in tech and software services." },
+  { type: "photo", src: "TELEPHONE AND RADIO SYSTEM INTEGRATED EMERGENCY RESPONSE.jpg.jpg", caption: "Emergency Response – Bohol", funFact: "Covers disaster management and communication systems." },
+  { type: "photo", src: "CEBU BASILICA DEL SANTO NIÑO.jpg", caption: "Basilica del Santo Niño – Cebu", funFact: "Oldest Roman Catholic church in the Philippines." },
+  { type: "photo", src: "CEBU MAGELLAN'S CROSS.jpg", caption: "Magellan's Cross – Cebu", funFact: "Historic Christian cross planted by Ferdinand Magellan in 1521." },
+  { type: "photo", src: "BOHOL CHOCOLATE HILLS.jpg", caption: "Bohol Chocolate Hills – Bohol", funFact: "Over 1,200 conical hills spread over 50 square kilometers." },
+  { type: "photo", src: "BOHOL SIKATUNA'S MIRROR OF THE WORLD.jpg", caption: "Bohol Sikatuna's Mirror Of The World – Bohol", funFact: "Known for reflection pools and biodiversity." },
+  { type: "photo", src: "BOHOL MAN MADE FOREST.jpg", caption: "Bohol Man Made Forest – Bohol", funFact: "A mahogany forest planted along the national highway." },
+  { type: "photo", src: "BOHOL TARSIER CONSERVATION AREA.jpg", caption: "Bohol Tarsier Conservation Area – Bohol", funFact: "Home to the world’s smallest primates, the tarsiers." },
+  { type: "photo", src: "quad.jpg", caption: "SIKATUNA'S MIRROR OF THE WORLD", funFact: "We met as four classmates in our first year at JMC and carried our friendship with us when we transferred to Holy Cross in our second year." },
+  { type: "photo", src: "quadro.jpg", caption: "Vista Suites", funFact: "" },
+  { type: "video", src: "bowlingvid.mp4.mp4", caption: "Bowling Video", funFact: "Bowling competition with friends." },
+  { type: "video", src: "chochills.mp4.mp4", caption: "Chocolate Hills Video", funFact: "" },
+  { type: "video", src: "floating.mp4.mp4", caption: "Floating Video", funFact: "Kayaking on the river." },
+  { type: "video", src: "mnl.mp4.mp4", caption: "Fourth Video", funFact: "Another memorable activity." },
+];
+
+const photoGrid = document.getElementById("photoGrid");
+const lightbox = document.getElementById("lightbox");
+const lightboxContent = document.getElementById("lightboxContent");
+const lightboxCaption = document.getElementById("lightboxCaption");
+
+let currentIndex = 0;
+
+function openLightbox(index){
+  currentIndex = index;
+  lightbox.style.display = "flex";
+  renderLightbox();
+}
+
+function renderLightbox(){
+  lightboxContent.innerHTML = "";
+  const item = mediaItems[currentIndex];
+
+  if(item.type === "photo"){
+    const img = document.createElement("img");
+    img.src = item.src;
+    lightboxContent.appendChild(img);
+  } else {
+    const video = document.createElement("video");
+    video.src = item.src;
+    video.controls = true;
+    video.autoplay = true;
+    lightboxContent.appendChild(video);
+  }
+
+  lightboxCaption.innerHTML = `<strong>${item.caption}</strong><br>${item.funFact}`;
+}
+
+function nextItem(){
+  currentIndex = (currentIndex + 1) % mediaItems.length;
+  renderLightbox();
+}
+
+function prevItem(){
+  currentIndex = (currentIndex - 1 + mediaItems.length) % mediaItems.length;
+  renderLightbox();
+}
+
+photoGrid.innerHTML = "";
+mediaItems.forEach((item, index) => {
+  const card = document.createElement("div");
+  card.className = item.type === "photo" ? "photo-card" : "video-card";
+  card.onclick = () => openLightbox(index);
+
+  if(item.type === "photo"){
+    const img = document.createElement("img");
+    img.src = item.src;
+    card.appendChild(img);
+  } else {
+    const video = document.createElement("video");
+    video.src = item.src;
+    video.controls = false;
+    card.appendChild(video);
+  }
+
+  const captionDiv = document.createElement("div");
+  captionDiv.className = "caption";
+  captionDiv.textContent = item.caption;
+  card.appendChild(captionDiv);
+
+  photoGrid.appendChild(card);
+});
+
+lightbox.onclick = (e) => {
+  if(e.target === lightbox) lightbox.style.display = "none";
+};
+
+document.addEventListener("keydown", (e)=>{
+  if(lightbox.style.display === "flex"){
+    if(e.key === "ArrowRight") nextItem();
+    else if(e.key === "ArrowLeft") prevItem();
+    else if(e.key === "Escape") lightbox.style.display = "none";
+  }
+});
+
+let touchStartX = 0;
+let touchEndX = 0;
+lightbox.addEventListener("touchstart", e => { touchStartX = e.changedTouches[0].screenX; });
+lightbox.addEventListener("touchend", e => {
+  touchEndX = e.changedTouches[0].screenX;
+  if(touchEndX - touchStartX > 50) prevItem();
+  else if(touchStartX - touchEndX > 50) nextItem();
+});
+</script>
+
+</body>
+</html>
