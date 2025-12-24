@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rex John Derayal Portfolio</title>
-
 <style>
 * {
   margin: 0;
@@ -24,17 +23,12 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 16px 50px;
-  background: rgba(0,0,0,0.9);
-  backdrop-filter: blur(5px);
   position: sticky;
   top: 0;
   z-index: 1000;
-  border: 2px solid #8A2BE2;
-  border-radius: 12px;
-  margin: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
+/* Portfolio title */
 nav h2 {
   color: #8A2BE2;
   font-weight: 900;
@@ -42,25 +36,55 @@ nav h2 {
   letter-spacing: 2px;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 25px;
+/* DROPDOWN MENU */
+.dropdown {
+  position: relative;
 }
 
-nav ul li a {
+.dropbtn {
+  background: #111;
   color: #fff;
-  text-decoration: none;
+  border: 2px solid #8A2BE2;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
   font-weight: 700;
-  font-size: 16px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: 0.3s ease;
-  border: 1px solid transparent;
+  font-size: 18px;
 }
 
-nav ul li a:hover {
-  border: 1px solid #8A2BE2;
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: #1a1a1a;
+  min-width: 180px;
+  border: 2px solid #8A2BE2;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(138,43,226,0.7);
+  z-index: 100;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px);
+}
+
+.dropdown-content a {
+  color: #fff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s;
+}
+
+.dropdown-content a:hover {
+  background: #8A2BE2;
+  color: #111;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero {
@@ -156,7 +180,7 @@ nav ul li a:hover {
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.85);
   transform: rotate(-3deg);
-  transition: 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .hero-right img:hover {
@@ -168,45 +192,49 @@ nav ul li a:hover {
     flex-direction: column;
     padding: 30px;
   }
-
   .hero-left h1 {
     font-size: 42px;
     text-align: center;
   }
-
   .glitch-name {
     font-size: 50px;
   }
-
   .social-links {
     justify-content: center;
   }
-
   .hero-right img {
     width: 60%;
     transform: rotate(0deg);
   }
+  .dropdown-content {
+    position: static;
+    transform: translateY(0);
+    opacity: 1;
+    display: none;
+    margin-top: 10px;
+  }
 }
 </style>
 </head>
-
 <body>
 
 <nav>
   <h2>MY <span style="color:#8A2BE2;">EDUCATIONAL PORTFOLIO</span></h2>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about me.html">About Me</a></li>
-    <li><a href="photos.html">Photos</a></li>
-    <li><a href="certificates.html">Certificates</a></li>
-  </ul>
+  <div class="dropdown">
+    <button class="dropbtn" onclick="toggleDropdown()">⋮</button>
+    <div class="dropdown-content" id="myDropdown">
+      <a href="index.html">Home</a>
+      <a href="about me.html">About Me</a>
+      <a href="photos.html">Photos</a>
+      <a href="certificates.html">Certificates</a>
+    </div>
+  </div>
 </nav>
 
 <section class="hero">
   <div class="hero-left">
     <h1>Learning by doing the portfolio of</h1>
     <span class="glitch-name" data-text="Rex John Derayal">Rex John Derayal</span>
-
     <div class="social-links">
       <a href="https://www.instagram.com/rexjohn.szn/" target="_blank">INSTAGRAM</a>
       <a href="https://www.facebook.com/rexjohn.szn" target="_blank">FACEBOOK</a>
@@ -217,6 +245,20 @@ nav ul li a:hover {
     <img src="rexjohn.jpg.jpg" alt="Profile Photo">
   </div>
 </section>
+
+<script>
+function toggleDropdown() {
+  const dropdown = document.getElementById("myDropdown");
+  dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+}
+
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+    const dropdown = document.getElementById("myDropdown");
+    if (dropdown.style.display === "block") dropdown.style.display = "none";
+  }
+}
+</script>
 
 </body>
 </html>

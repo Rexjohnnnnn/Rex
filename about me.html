@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Me - Rex John Derayal</title>
-
 <style>
 * {
   margin: 0;
@@ -42,25 +41,50 @@ nav h2 {
   letter-spacing: 2px;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 25px;
+/* Dropdown */
+.dropdown {
+  position: relative;
 }
-
-nav ul li a {
+.dropbtn {
+  background: #111;
   color: #fff;
-  text-decoration: none;
+  border: 2px solid #8A2BE2;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
   font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: 0.3s;
+  font-size: 18px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: #1a1a1a;
+  min-width: 180px;
+  border: 2px solid #8A2BE2;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(138,43,226,0.7);
+  z-index: 100;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px);
+}
+.dropdown-content a {
+  color: #fff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s;
+}
+.dropdown-content a:hover { background: #8A2BE2; color: #111; }
+.dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-nav ul li a:hover {
-  border: 1px solid #8A2BE2;
-}
-
+/* About Section */
 .about {
   max-width: 1000px;
   margin: 100px auto;
@@ -137,6 +161,7 @@ nav ul li a:hover {
   transform: rotate(0deg) scale(1.03);
 }
 
+/* Interactive Section */
 .interactive {
   max-width: 900px;
   margin: 80px auto;
@@ -225,6 +250,8 @@ nav ul li a:hover {
     width: 60%;
     transform: rotate(0deg);
   }
+
+  .dropdown-content { position: static; transform: translateY(0); opacity: 1; display: none; margin-top: 10px; }
 }
 </style>
 </head>
@@ -232,12 +259,15 @@ nav ul li a:hover {
 
 <nav>
   <h2>MY <span style="color:#8A2BE2;">EDUCATIONAL PORTFOLIO</span></h2>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about me.html">About Me</a></li>
-    <li><a href="photos.html">Photos</a></li>
-    <li><a href="certificates.html">Certificates</a></li>
-  </ul>
+  <div class="dropdown">
+    <button class="dropbtn" onclick="toggleDropdown()">⋮</button>
+    <div class="dropdown-content" id="myDropdown">
+      <a href="index.html">Home</a>
+      <a href="about me.html">About Me</a>
+      <a href="photos.html">Photos</a>
+      <a href="certificates.html">Certificates</a>
+    </div>
+  </div>
 </nav>
 
 <section class="about">
@@ -264,18 +294,10 @@ nav ul li a:hover {
 <section class="interactive">
   <h2>Let's Have Some Fun!</h2>
   <div class="cards">
-    <div class="card" onclick="showMessage('Hey! Thanks for stopping by 😎')">
-      Say Hi!
-    </div>
-    <div class="card" onclick="showMessage('My favorite perfume? Hmm… smells like confidence 😏')">
-      Guess My Favorite Perfume
-    </div>
-    <div class="card" onclick="showMessage('Click my profile picture for a surprise! 👀')">
-      Secret Easter Egg
-    </div>
-    <div class="card" onclick="startQuiz()">
-      Mini Quiz
-    </div>
+    <div class="card" onclick="showMessage('Hey! Thanks for stopping by 😎')">Say Hi!</div>
+    <div class="card" onclick="showMessage('My favorite perfume? Hmm… smells like confidence 😏')">Guess My Favorite Perfume</div>
+    <div class="card" onclick="showMessage('Click my profile picture for a surprise! 👀')">Secret Easter Egg</div>
+    <div class="card" onclick="startQuiz()">Mini Quiz</div>
   </div>
   <div id="message-box"></div>
 </section>
@@ -291,27 +313,24 @@ nav ul li a:hover {
 </div>
 
 <script>
-function showMessage(msg) {
-  const box = document.getElementById('message-box');
-  box.textContent = msg;
-}
-
-function startQuiz() {
-  document.getElementById('quiz').style.display = 'block';
-}
-
+function showMessage(msg) { document.getElementById('message-box').textContent = msg; }
+function startQuiz() { document.getElementById('quiz').style.display = 'block'; }
 function answerQuiz(result) {
-  const res = document.getElementById('quiz-result');
-  if(result === 'correct') {
-    res.textContent = "🎉 Correct! Perfume is life 😎";
-  } else {
-    res.textContent = "❌ Nope! Try again 😉";
-  }
+  document.getElementById('quiz-result').textContent =
+    result === 'correct' ? "🎉 Correct! Perfume is life 😎" : "❌ Nope! Try again 😉";
+}
+function closeQuiz() { document.getElementById('quiz').style.display = 'none'; document.getElementById('quiz-result').textContent = ''; }
+
+function toggleDropdown() {
+  const dropdown = document.getElementById("myDropdown");
+  dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
 }
 
-function closeQuiz() {
-  document.getElementById('quiz').style.display = 'none';
-  document.getElementById('quiz-result').textContent = '';
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+    const dropdown = document.getElementById("myDropdown");
+    if (dropdown.style.display === "block") dropdown.style.display = "none";
+  }
 }
 </script>
 
